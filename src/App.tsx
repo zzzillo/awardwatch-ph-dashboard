@@ -424,7 +424,7 @@ function RankingExplorer({ rows, selected }: { rows: RankingRow[]; selected: str
   const sortMark = (key: SortKey) => (sort === key ? (direction === "desc" ? " ↓" : " ↑") : "");
 
   return (
-    <div className="grid max-h-[500px] min-w-[860px] grid-cols-[minmax(260px,1.5fr)_120px_150px_150px_110px_110px] overflow-auto">
+    <div className="grid max-h-[500px] min-w-[860px] grid-cols-[minmax(260px,1.5fr)_120px_150px_150px_110px_110px]">
         <div className="sticky top-0 z-10 min-h-9 border-b border-zinc-800 bg-zinc-950 p-2.5 text-left text-[11px] font-black uppercase tracking-wider text-zinc-500">Name</div>
         <button className="sticky top-0 z-10 min-h-9 border-b border-zinc-800 bg-zinc-950 p-2.5 text-right text-[11px] font-black uppercase tracking-wider text-zinc-500" type="button" onClick={() => changeSort("records")}>
           Count{sortMark("records")}
@@ -681,8 +681,8 @@ function Dashboard() {
 
         <ContractsList rows={contracts} filters={filters} startYear={startYear} endYear={endYear} />
 
-        <section className={`${ui.panel} ${ui.panelPad}`}>
-          <div className="mb-3 flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
+        <section className={`${ui.panel} overflow-hidden`}>
+          <div className="flex flex-col justify-between gap-3 border-b border-zinc-800 p-3 lg:flex-row lg:items-center">
             <div>
               <p className={ui.eyebrow}>Rankings</p>
               <h2 className="text-lg font-black leading-tight text-zinc-100">Contract award rankings</h2>
@@ -696,7 +696,9 @@ function Dashboard() {
               ))}
             </div>
           </div>
-          <RankingExplorer rows={rankingRows} selected={filters[rankingTab]} />
+          <div className="overflow-x-auto">
+            <RankingExplorer rows={rankingRows} selected={filters[rankingTab]} />
+          </div>
         </section>
 
         <section className="grid gap-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
