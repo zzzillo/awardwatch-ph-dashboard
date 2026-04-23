@@ -1,0 +1,11 @@
+dataset/
+backend/
+hf-space/
+public/data/
+dist/
+node_modules/
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
