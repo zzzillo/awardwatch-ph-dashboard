@@ -15,7 +15,8 @@ export interface ApiSummary {
   top_awardee: string;
 }
 
-const apiBase = import.meta.env.VITE_API_BASE_URL || "";
+const defaultApiBase = "https://pzypzy-awardwatch-ph-api.hf.space";
+const apiBase = (import.meta.env.VITE_API_BASE_URL || defaultApiBase).replace(/\/$/, "");
 
 function queryString(scope: ApiFilters, extra: Record<string, string | number | undefined> = {}) {
   const params = new URLSearchParams();
@@ -30,7 +31,7 @@ function queryString(scope: ApiFilters, extra: Record<string, string | number | 
 
 async function get<T>(path: string): Promise<T> {
   const response = await fetch(`${apiBase}${path}`);
-  if (!response.ok) throw new Error(`API request failed: ${response.status}`);
+  if (!response.ok) throw new Error(`API request failed: ${response.status} at ${response.url}`);
   return response.json() as Promise<T>;
 }
 
